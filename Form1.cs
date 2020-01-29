@@ -15,21 +15,19 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private string currentSong, npSong, npArtist, searchTerm;
-        private Process[] processList;
+        private string currentSong, searchTerm;  
         
         public Form1()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // nowPlayingSong.Text = currentSong;
+            
         }
 
-        private bool openSpotify(string uri)
+        private bool openSpotify(string uri) // Open spotify URIs
         {
             try
             {
@@ -45,22 +43,16 @@ namespace WindowsFormsApp1
                 Console.WriteLine("Whoops");
                 return false;
             }
-        } // Open spotify URIs
+        } 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-                //convertLink(Clipboard.GetText());
-
-                //System.Windows.Forms.Application.Exit();
-        }//Exit Button
-
-        private void npLink_Click(object sender, EventArgs e)
+        private void npLink_Click(object sender, EventArgs e) //Concats Artist and Song title to generate search url.
         {
             string toClip = "spotify:search:" + nowPlayingArtist.Text + nowPlayingSong.Text;
             Clipboard.SetText(toClip.Replace(" ", "+"));
         }
 
-        private string convertLink(string link) {
+        private string convertLink(string link) // Converts spotify open urls into URIs.
+        {
             // Sample input https://open.spotify.com/track/5SiZJoLXp3WOl3J4C8IK0d?si=VWoGtyBGS4mgM6A9rN7fAQ
             string input = link; 
             String regexTrack = "(?:/track)\\S*";
@@ -68,7 +60,7 @@ namespace WindowsFormsApp1
             String regexArtist = "(?:/artist)\\S*";
             String regexAlbum = "(?:/album)\\S*";
             String regexUser = "(?:/user)\\S*";
-
+            // a mess. 
             if (Regex.Match(input, regexTrack).Success) {
                 input = Regex.Match(input, regexTrack).ToString();
             }else if (Regex.Match(input, regexPlaylist).Success)
@@ -84,35 +76,31 @@ namespace WindowsFormsApp1
             {
                 input = Regex.Match(input, regexUser).ToString();
             }
-            if (input.Contains("?"))
+            if (input.Contains("?")) //Regex is hard
             {
                 char question = '?';
                 string[] output = input.Split(question);
                 input = output[0];
             }
 
-            //Clipboard.SetText(input);
             input = input.Replace('/', ':');
+
             if (!input.Contains("spotify")) {
                 input = "spotify" + input;
             }
             
-            Clipboard.SetText(input);
             return input;
-
-            //Regex removeURL = new Regex(@"\.*$\");
-            //Regex removePromo = new Regex(@"?.*$\");
-
-            //string text = input.Replace(input, "(?:/track)S*");
         }
 
-        private void searchInput_TextChanged(object sender, EventArgs e)
+        private void searchInput_TextChanged(object sender, EventArgs e) // Updates Clipboard based on user input; V.Bad.
         {
-            searchTerm = searchInput.Text;
-            Clipboard.SetText(searchTerm);
-        } // Updates Clipboard based on user input
+            if (searchInput.TextLength > 2) {
+                searchTerm = searchInput.Text;
+                Clipboard.SetText(searchTerm);
+            }
+        } 
 
-        private void goToLink_Click(object sender, EventArgs e)
+        private void goToLink_Click(object sender, EventArgs e) // Function to open spotify uris.
         {
             string str = Clipboard.GetText();
             if (str.Contains("spotify:"))
@@ -126,17 +114,10 @@ namespace WindowsFormsApp1
             convertLink(Clipboard.GetText());
         }
 
-        private bool detectSpotifyLink(string data)
+        private bool detectSpotifyLink(string data) // Detect if Clipboard contains 'spotify'
         {
-            if (data.Contains("spotify"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        } // Detect if Clipboard contains 'spotify'
+            return (Clipboard.GetText().Contains("spotify") ? true : false);
+        } 
 
         private void searchSong_Click(object sender, EventArgs e) // Search for either now playing or input term
         {
@@ -144,9 +125,9 @@ namespace WindowsFormsApp1
             openSpotify(preUri);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e) // Checks for Spotify process, gets active title.
         {            
-            processList = Process.GetProcessesByName("Spotify");
+            Process[] processList = Process.GetProcessesByName("Spotify");
             foreach (Process process in processList)
             {
                 if (!String.IsNullOrEmpty(process.MainWindowTitle) && process.ProcessName == "Spotify")
@@ -161,20 +142,16 @@ namespace WindowsFormsApp1
                     }                    
                 }
             }
-        } // Updates now playing from Spotify
+        }
 
         private void clipUpdate_Tick(object sender, EventArgs e) //Timer to detect clipboard updates.
         {
             string clipData = Clipboard.GetText(); // Stores clip data
             if (detectSpotifyLink(clipData) == true)
-            {
-                clipboard.Text = clipData;
-                if (clipboard.Text.Length > 90) {
-                    //Spotify Link is 90 chars long, most likely a batch.
-                    string[] links = clipboard.Text.Split(
-                        new[] { Environment.NewLine },
-                        StringSplitOptions.None
-                    );
+            {                
+                if (clipData.Length > 90) {
+                    //Spotify Link is 53 chars long plus buffer room for junk in the copy.
+                    string[] links = clipData.Split(new[] { Environment.NewLine }, StringSplitOptions.None); //Splits the clipboard by line breaks, WIP.
                     foreach (string link in links) {
 
                     }

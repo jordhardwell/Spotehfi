@@ -34,12 +34,9 @@
             this.searchSong = new System.Windows.Forms.Button();
             this.header = new System.Windows.Forms.PictureBox();
             this.nowPlayingSong = new System.Windows.Forms.Label();
-            this.exitBtn = new System.Windows.Forms.Button();
             this.npLink = new System.Windows.Forms.Button();
-            this.clipboard = new System.Windows.Forms.Label();
             this.clipUpdate = new System.Windows.Forms.Timer(this.components);
             this.searchInput = new System.Windows.Forms.TextBox();
-            this.regexOut = new System.Windows.Forms.Label();
             this.goToLink = new System.Windows.Forms.Button();
             this.cleanLinkBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.header)).BeginInit();
@@ -53,13 +50,14 @@
             // nowPlayingArtist
             // 
             this.nowPlayingArtist.AutoSize = true;
+            this.nowPlayingArtist.CausesValidation = false;
             this.nowPlayingArtist.Font = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nowPlayingArtist.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.nowPlayingArtist.Location = new System.Drawing.Point(239, 77);
+            this.nowPlayingArtist.Location = new System.Drawing.Point(229, 92);
             this.nowPlayingArtist.Name = "nowPlayingArtist";
-            this.nowPlayingArtist.Size = new System.Drawing.Size(86, 37);
+            this.nowPlayingArtist.Size = new System.Drawing.Size(85, 37);
             this.nowPlayingArtist.TabIndex = 3;
-            this.nowPlayingArtist.Text = "label1";
+            this.nowPlayingArtist.Text = "Artist";
             // 
             // searchSong
             // 
@@ -86,25 +84,15 @@
             // nowPlayingSong
             // 
             this.nowPlayingSong.AutoSize = true;
+            this.nowPlayingSong.CausesValidation = false;
             this.nowPlayingSong.Font = new System.Drawing.Font("Segoe UI Semibold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nowPlayingSong.ForeColor = System.Drawing.Color.Silver;
-            this.nowPlayingSong.Location = new System.Drawing.Point(239, 40);
+            this.nowPlayingSong.Location = new System.Drawing.Point(174, 55);
             this.nowPlayingSong.Name = "nowPlayingSong";
-            this.nowPlayingSong.Size = new System.Drawing.Size(86, 37);
+            this.nowPlayingSong.Size = new System.Drawing.Size(140, 37);
             this.nowPlayingSong.TabIndex = 0;
-            this.nowPlayingSong.Text = "label1";
-            // 
-            // exitBtn
-            // 
-            this.exitBtn.BackColor = System.Drawing.Color.Red;
-            this.exitBtn.FlatAppearance.BorderSize = 0;
-            this.exitBtn.Location = new System.Drawing.Point(540, 1);
-            this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(16, 16);
-            this.exitBtn.TabIndex = 6;
-            this.exitBtn.Text = "X";
-            this.exitBtn.UseVisualStyleBackColor = false;
-            this.exitBtn.Click += new System.EventHandler(this.button1_Click);
+            this.nowPlayingSong.Text = "Song Title";
+            this.nowPlayingSong.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // npLink
             // 
@@ -117,15 +105,6 @@
             this.npLink.UseVisualStyleBackColor = true;
             this.npLink.Click += new System.EventHandler(this.npLink_Click);
             // 
-            // clipboard
-            // 
-            this.clipboard.AutoSize = true;
-            this.clipboard.Location = new System.Drawing.Point(13, 26);
-            this.clipboard.Name = "clipboard";
-            this.clipboard.Size = new System.Drawing.Size(35, 13);
-            this.clipboard.TabIndex = 8;
-            this.clipboard.Text = "label1";
-            // 
             // clipUpdate
             // 
             this.clipUpdate.Enabled = true;
@@ -134,20 +113,12 @@
             // 
             // searchInput
             // 
-            this.searchInput.Location = new System.Drawing.Point(13, 103);
+            this.searchInput.Location = new System.Drawing.Point(224, 178);
             this.searchInput.Name = "searchInput";
             this.searchInput.Size = new System.Drawing.Size(100, 20);
             this.searchInput.TabIndex = 9;
+            this.searchInput.Text = "Search";
             this.searchInput.TextChanged += new System.EventHandler(this.searchInput_TextChanged);
-            // 
-            // regexOut
-            // 
-            this.regexOut.AutoSize = true;
-            this.regexOut.Location = new System.Drawing.Point(13, 40);
-            this.regexOut.Name = "regexOut";
-            this.regexOut.Size = new System.Drawing.Size(35, 13);
-            this.regexOut.TabIndex = 10;
-            this.regexOut.Text = "label1";
             // 
             // goToLink
             // 
@@ -180,11 +151,8 @@
             this.ClientSize = new System.Drawing.Size(557, 296);
             this.Controls.Add(this.cleanLinkBtn);
             this.Controls.Add(this.goToLink);
-            this.Controls.Add(this.regexOut);
             this.Controls.Add(this.searchInput);
-            this.Controls.Add(this.clipboard);
             this.Controls.Add(this.npLink);
-            this.Controls.Add(this.exitBtn);
             this.Controls.Add(this.header);
             this.Controls.Add(this.searchSong);
             this.Controls.Add(this.nowPlayingArtist);
@@ -206,12 +174,9 @@
         private System.Windows.Forms.Button searchSong;
         private System.Windows.Forms.PictureBox header;
         private System.Windows.Forms.Label nowPlayingSong;
-        private System.Windows.Forms.Button exitBtn;
         private System.Windows.Forms.Button npLink;
-        private System.Windows.Forms.Label clipboard;
         private System.Windows.Forms.Timer clipUpdate;
         private System.Windows.Forms.TextBox searchInput;
-        private System.Windows.Forms.Label regexOut;
         private System.Windows.Forms.Button goToLink;
         private System.Windows.Forms.Button cleanLinkBtn;
     }
